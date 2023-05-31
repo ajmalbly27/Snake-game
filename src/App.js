@@ -55,8 +55,6 @@ const App = () => {
             case 'DOWN':
                 head = [head[0], head[1] + 2];
                 break;
-            default:
-                break;
         }
         dots.push(head);
         dots.shift();
@@ -87,8 +85,6 @@ const App = () => {
                 break;
             case 'ArrowRight':
                 setDirection('RIGHT');
-                break;
-            default:
                 break;
         }
     }
