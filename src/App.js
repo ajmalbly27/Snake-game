@@ -23,6 +23,7 @@ const App = () => {
 
     let intervalId = useRef();
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
 
         intervalId.current = setInterval(moveSnake, speed);
@@ -55,6 +56,8 @@ const App = () => {
             case 'DOWN':
                 head = [head[0], head[1] + 2];
                 break;
+            default:
+                break;
         }
         dots.push(head);
         dots.shift();
@@ -85,6 +88,8 @@ const App = () => {
                 break;
             case 'ArrowRight':
                 setDirection('RIGHT');
+                break;
+            default:
                 break;
         }
     }
@@ -131,10 +136,6 @@ const App = () => {
     const onGameOver = () => {
         clearInterval(intervalId.current);
         setIsGameOver(true);
-        // alert(`Game Over: Your high score is: ${snakeDots.length*10 - 20}`);
-        // setSnakeDots([ [0,0],[2,0] ]);
-        // setDirection('RIGHT');
-        // setSpeed(200);
     }
 
     const handlePause = () => {
