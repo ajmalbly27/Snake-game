@@ -152,18 +152,30 @@ const App = () => {
     }
 
     const handleLeftButton = () => {
+        if(direction === "RIGHT"){
+            return;
+        }
         setDirection("LEFT");
     }
 
     const handleRightButton = () => {
+        if(direction === "LEFT"){
+            return;
+        }
         setDirection("RIGHT");
     }
 
     const handleDownButton = () => {
+        if(direction === "UP"){
+            return;
+        }
         setDirection("DOWN");
     }
 
     const handleUpButton = () => {
+        if(direction === "DOWN"){
+            return;
+        }
         setDirection("UP");
     }
 
