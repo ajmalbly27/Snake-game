@@ -111,13 +111,13 @@ const App = () => {
     }
 
     const increaseSpeed = () => {
-        if(speed > 10){
+        if(speed > 50){
             setSpeed(prevSpeed => prevSpeed - 10);
         }
     }
 
     const onGameOver = () => {
-        alert(`Game Over: Your high score is: ${snakeDots.length*10}`);
+        alert(`Game Over: Your high score is: ${snakeDots.length*10 - 20}`);
         setSnakeDots([ [0,0],[2,0] ]);
         setDirection('RIGHT');
         setSpeed(200);
@@ -140,10 +140,26 @@ const App = () => {
         setStatus(true);
     }
 
+    const handleLeftButton = () => {
+        setDirection("LEFT");
+    }
+
+    const handleRightButton = () => {
+        setDirection("RIGHT");
+    }
+
+    const handleDownButton = () => {
+        setDirection("DOWN");
+    }
+
+    const handleUpButton = () => {
+        setDirection("UP");
+    }
+
     return (
         <div className="container">
             <div>
-              <div className="score">Score:{snakeDots.length*10}</div>
+              <div className="score">Score:{snakeDots.length*10 - 20}</div>
             </div>
             <div className="game-area">
                 <Snake snakeDots={snakeDots}/>
@@ -155,6 +171,14 @@ const App = () => {
                     : <button className="btn" onClick={() => handleResume()}>Resume</button>
                 }
                 <button className="btn" onClick={() => handleRestart()}>Restart</button>
+            </div>
+            <div className="navigation-button">
+                <button className="button" onClick={handleUpButton}>UP</button>
+                <div>
+                    <button className="left button" onClick={handleLeftButton}>LEFT </button>
+                    <button className="right button" onClick={handleRightButton}>RIGHT</button>
+                </div>                
+                <button className="button" onClick={handleDownButton}>DOWN</button>
             </div>
         </div>
     )
