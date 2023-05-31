@@ -41,7 +41,7 @@
 
 .btn {
   width: 70px;
-  margin: 0 10px;
+  margin: 20px 10px;
   padding: 5px;
   color: #fff;
   background-color: rgb(14, 19, 9);
@@ -72,6 +72,6 @@
 @media(max-width:416px) {
   .game-area{
     width: 70vw;
-    height: 30vh;
+    height: 50vh;
   }
 }
