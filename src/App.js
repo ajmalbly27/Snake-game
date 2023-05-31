@@ -1,4 +1,4 @@
-
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from "react";
 import Snake from './components/Snake';
 import Food from './components/Food';
@@ -23,7 +23,6 @@ const App = () => {
 
     let intervalId = useRef();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
 
         intervalId.current = setInterval(moveSnake, speed);
