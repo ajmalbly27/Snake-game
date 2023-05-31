@@ -6,7 +6,7 @@ import './App.css';
 
 const getRandomCoordinates = () => {
     let min = 1;
-    let max = 98;
+    let max = 97;
     let x = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
     let y = Math.floor((Math.random()*(max-min+1)+min)/2)*2;
     return [x,y]
@@ -14,10 +14,11 @@ const getRandomCoordinates = () => {
 
 const App = () => {
 
-    const [snakeDots, setSnakeDots] = useState([ [0,0],[2,0] ]);
+    const [snakeDots, setSnakeDots] = useState([ [2,2],[4,2] ]);
     const [direction, setDirection] = useState('RIGHT');
     const [food, setFood] = useState(getRandomCoordinates());
     const [speed, setSpeed] = useState(200);
+    const [isGameOver, setIsGameOver] = useState(false);
     const [status, setStatus] = useState(true);
 
     let intervalId = useRef();
@@ -60,7 +61,18 @@ const App = () => {
         setSnakeDots(dots);
     }
 
-    const onKeyDown = (e) => {        
+    const onKeyDown = (e) => {
+
+        if(direction === 'RIGHT' && e.key === 'ArrowLeft') {
+            return;
+        } else if(direction === 'LEFT' && e.key === 'ArrowRight') {
+            return;
+        } else if(direction === 'DOWN' && e.key === 'ArrowUp') {
+            return;
+        }else if(direction === 'UP' && e.key === 'ArrowDown') {
+            return;
+        }  
+        
         switch(e.key) {
             case 'ArrowDown':
                 setDirection('DOWN');
@@ -79,7 +91,7 @@ const App = () => {
 
     const checkIfOutOfBorders = () => {
         let head = snakeDots[snakeDots.length - 1];
-        if(head[0]<0 || head[0]>=100 || head[1]<0 || head[1]>=100){
+        if(head[0]<1 || head[0]>95 || head[1]<1 || head[1]>95){
             onGameOver();
         }
     }
@@ -117,10 +129,12 @@ const App = () => {
     }
 
     const onGameOver = () => {
-        alert(`Game Over: Your high score is: ${snakeDots.length*10 - 20}`);
-        setSnakeDots([ [0,0],[2,0] ]);
-        setDirection('RIGHT');
-        setSpeed(200);
+        clearInterval(intervalId.current);
+        setIsGameOver(true);
+        // alert(`Game Over: Your high score is: ${snakeDots.length*10 - 20}`);
+        // setSnakeDots([ [0,0],[2,0] ]);
+        // setDirection('RIGHT');
+        // setSpeed(200);
     }
 
     const handlePause = () => {
@@ -134,10 +148,11 @@ const App = () => {
     }
 
     const handleRestart = () => {
-        setSnakeDots([ [0,0],[2,0] ]);
+        setSnakeDots([ [2,2],[4,2] ]);
         setDirection('RIGHT');
         setSpeed(200);
         setStatus(true);
+        setIsGameOver(false);
     }
 
     const handleLeftButton = () => {
@@ -165,12 +180,17 @@ const App = () => {
                 <Snake snakeDots={snakeDots}/>
                 <Food dot={food}/>
             </div>
+            { isGameOver ? <div className="game-over">{`Game Over: Your score is: ${snakeDots.length*10 - 20}`}</div> : null }
             <div>
-                { status 
-                    ? <button className="btn" onClick={() => handlePause()}>Pause</button> 
-                    : <button className="btn" onClick={() => handleResume()}>Resume</button>
-                }
-                <button className="btn" onClick={() => handleRestart()}>Restart</button>
+                { !isGameOver ? 
+                    <div>
+                        { status ? <button className="btn" onClick={() => handlePause()}>Pause</button> 
+                                : <button className="btn" onClick={() => handleResume()}>Resume</button> 
+                        }
+                        <button className="btn" onClick={() => handleRestart()}>Restart</button>
+                    </div> 
+                    : <button className="btn" onClick={() => handleRestart()}>Restart</button>
+                }   
             </div>
             <div className="navigation-button">
                 <button className="button" onClick={handleUpButton}>UP</button>
