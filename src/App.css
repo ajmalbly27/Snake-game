@@ -71,7 +71,7 @@
 
 @media(max-width:416px) {
   .game-area{
-    width: 70vw;
-    height: 50vh;
+    width: 80vw;
+    height: 45vh;
   }
 }
